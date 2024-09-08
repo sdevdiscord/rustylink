@@ -1,19 +1,12 @@
 mod discord;
 mod ws;
 
-use std::time;
-
 use axum::{
     routing::{get, post},
     http::StatusCode,
     Json, Router,
 };
-use discord::{opcodes::VoiceOpcode, payloads::HelloPayload};
 use serde::Deserialize;
-use serde_json::json;
-use tokio::task;
-use tokio_tungstenite::{connect_async, tungstenite::Message};
-use futures_util::{SinkExt, StreamExt};
 
 
 #[tokio::main]

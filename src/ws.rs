@@ -1,7 +1,7 @@
 use std::time;
 
 use tokio::{sync::mpsc::UnboundedSender, task};
-use tokio_tungstenite::{connect_async, tungstenite::protocol::Message};
+use tokio_websockets::{ClientBuilder, Message};
 use futures_util::StreamExt;
 use serde_json::json;
 
@@ -21,7 +21,7 @@ impl VoiceWebsocket {
 
         let url = format!("wss://{}?v={}", endpoint, VOICE_WEBSOCKET_VERSION);
 
-        let (ws, _) = connect_async(&url).await.expect("Failed to connect");
+        let (ws, _) = ClientBuilder::from_uri(&url).connect().await.expect("Failed to connect");
 
         let (write, read) = ws.split();
 
